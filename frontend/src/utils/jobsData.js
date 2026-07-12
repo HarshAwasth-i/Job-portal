@@ -7,6 +7,8 @@ const jobs = [
     salary: "₹18 LPA",
     type: "Full Time",
     experience: "2-4 Years",
+    posted: "2 days ago",
+    featured: true,
     skills: ["React", "Node.js", "Remote"],
   },
   {
@@ -17,6 +19,8 @@ const jobs = [
     salary: "₹22 LPA",
     type: "Full Time",
     experience: "3-5 Years",
+    posted: "1 day ago",
+    featured: false,
     skills: ["Node.js", "Express", "MySQL"],
   },
   {
@@ -27,6 +31,8 @@ const jobs = [
     salary: "₹30 LPA",
     type: "Remote",
     experience: "2+ Years",
+    posted: "5 hours ago",
+    featured: true,
     skills: ["Python", "LLM", "AI"],
   },
 ];
