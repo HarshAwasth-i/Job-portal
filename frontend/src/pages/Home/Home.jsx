@@ -1,47 +1,89 @@
-import Button from "../../components/Button/Button";
-import JobCard from "../../components/JobCard/JobCard";
+import { Button } from "@/components/ui/button";
+import JobCard from "@/components/JobCard/JobCard";
 import jobs from "../../utils/jobsData";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
 import companies from "../../utils/companyData";
+import { Search } from "lucide-react";
 
 const Home = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="min-h-[80vh] flex flex-col justify-center items-center text-center">
+      <section className="py-24">
 
-        <h1 className="text-6xl font-bold leading-tight">
-          Find Your
-          <span className="text-blue-600"> Dream Job</span>
-        </h1>
+  <div className="text-center">
 
-        <p className="text-gray-600 mt-6 text-lg max-w-2xl">
-          Search thousands of jobs from top companies and start your career today.
-        </p>
+    <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-medium">
+      🚀 India's Fastest Growing Job Portal
+    </span>
 
-        <div className="mt-10 flex w-full max-w-2xl shadow-lg rounded-lg overflow-hidden">
-          <input
-            type="text"
-            placeholder="Search job title..."
-            className="flex-1 px-5 py-4 outline-none"
-          />
+    <h1 className="text-6xl font-extrabold mt-8 leading-tight">
+      Find Your
+      <span className="text-blue-600"> Dream Career</span>
+    </h1>
 
-          <Button text="Search" className="rounded-none" />
-        </div>
-      </section>
+    <p className="mt-6 text-gray-500 text-lg max-w-2xl mx-auto">
+      Discover thousands of opportunities from top companies and take the next step in your career.
+    </p>
 
-      {/* Featured Jobs */}
-      <section className="py-12">
-        <h2 className="text-4xl font-bold text-center mb-10">
-          Featured Jobs
-        </h2>
+    {/* Stats */}
+    <div className="flex justify-center gap-10 mt-10 flex-wrap">
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {jobs.map((job) => (
-            <JobCard key={job.id} job={job} />
-          ))}
-        </div>
-      </section>
+      <div>
+        <h2 className="text-3xl font-bold text-blue-600">10K+</h2>
+        <p className="text-gray-500">Jobs</p>
+      </div>
+
+      <div>
+        <h2 className="text-3xl font-bold text-blue-600">500+</h2>
+        <p className="text-gray-500">Companies</p>
+      </div>
+
+      <div>
+        <h2 className="text-3xl font-bold text-blue-600">50K+</h2>
+        <p className="text-gray-500">Candidates</p>
+      </div>
+
+    </div>
+
+    {/* Search */}
+
+    <div className="max-w-3xl mx-auto mt-12 flex items-center bg-white rounded-xl border shadow-lg overflow-hidden">
+
+      <Search className="ml-5 text-gray-400" size={22} />
+
+      <input
+        type="text"
+        placeholder="Search Jobs..."
+        className="flex-1 px-4 py-5 outline-none"
+      />
+
+     <Button className="rounded-none h-full px-8">
+  Search
+</Button>
+
+    </div>
+
+    {/* Trending */}
+
+    <div className="mt-8 flex justify-center gap-3 flex-wrap">
+
+      {["React", "Node.js", "Python", "Java", "AI"].map((skill) => (
+
+        <span
+          key={skill}
+          className="bg-gray-100 px-4 py-2 rounded-full text-sm"
+        >
+          {skill}
+        </span>
+
+      ))}
+
+    </div>
+
+  </div>
+
+</section>
       {/* Top Companies */}
 <section className="py-16">
   <h2 className="text-4xl font-bold text-center mb-10">
