@@ -1,3 +1,4 @@
+import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ import Button from "../../components/Button/Button";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -32,16 +34,9 @@ const Login = () => {
 
       alert(response.message);
 
-      // Save token
-      localStorage.setItem("token", response.token);
+    login(response.user, response.token);
 
-      // Save user details
-      localStorage.setItem(
-        "user",
-        JSON.stringify(response.user)
-      );
-
-      // Redirect
+  
       navigate("/");
 
     } catch (error) {
