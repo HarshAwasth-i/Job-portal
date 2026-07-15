@@ -1,6 +1,7 @@
+import { registerUser } from "../../services/authService";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import AuthInput from "../../components/Auth/AuthInput";
 import Button from "../../components/Button/Button";
@@ -15,7 +16,9 @@ const [confirmPassword, setConfirmPassword] = useState("");
 
 const [error, setError] = useState("");
 
-const handleRegister = () => {
+ const navigate = useNavigate();
+
+const handleRegister = async () => {
   if (!name || !email || !password || !confirmPassword) {
     setError("Please fill all the fields.");
     return;
@@ -38,14 +41,27 @@ if (password !== confirmPassword) {
   return;
 }
 
-  setError("");
+ setError("");
 
-  console.log({
+try {
+  const response = await registerUser({
     name,
     email,
     password,
-    confirmPassword,
   });
+
+ alert(response.message);
+
+ setName("");
+setEmail("");
+setPassword("");
+setConfirmPassword("");
+
+navigate("/login");
+
+} catch (error) {
+  console.error(error);
+}
 };
 
   return (
