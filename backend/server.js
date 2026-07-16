@@ -1,5 +1,6 @@
 const jobRoutes = require("./routes/jobRoutes");
 const authRoutes = require("./routes/authRoutes");
+const applicationRoutes = require("./routes/applicationRoutes");
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -13,6 +14,8 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
+
+app.use("/api/applications", applicationRoutes);
 
 app.get("/", (req, res) => {
   res.send("Job Portal Backend Running 🚀");
