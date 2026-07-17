@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import Profile from "./pages/Profile/Profile";
 
 import MainLayout from "./layouts/MainLayout";
 
@@ -9,6 +10,7 @@ import Jobs from "./pages/Jobs/Jobs";
 import JobDetails from "./pages/JobDetails/JobDetails";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import RecruiterDashboard from "./pages/Recruiter/RecruiterDashboard";
+import CandidateDashboard from "./pages/Candidate/CandidateDashboard";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -33,11 +35,23 @@ function App() {
           }
         />
 
+        <Route path="/profile" element={<Profile />} />
+
         <Route
           path="/recruiter"
           element={
             <ProtectedRoute>
               <RecruiterDashboard />
+            </ProtectedRoute>
+          }
+
+          
+        />
+        <Route
+          path="/candidate"
+          element={
+            <ProtectedRoute>
+              <CandidateDashboard />
             </ProtectedRoute>
           }
         />

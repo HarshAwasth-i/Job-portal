@@ -12,7 +12,27 @@ const AuthInput = ({
       value={value}
       onChange={onChange}
       name={name}
-      className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+      className="
+        w-full
+        rounded-lg
+        border
+        border-gray-300
+        dark:border-gray-600
+        bg-white
+        dark:bg-gray-700
+        text-gray-900
+        dark:text-white
+        placeholder:text-gray-400
+        dark:placeholder:text-gray-400
+        px-4
+        py-3
+        outline-none
+        focus:border-blue-500
+        focus:ring-2
+        focus:ring-blue-500/20
+        transition-all
+        duration-300
+      "
     />
   );
 };

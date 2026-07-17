@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import PostJobForm from "../../components/PostJob/PostJobForm";
+import ApplicantsList from "../../components/Applicants/ApplicantsList";
 import { getAllJobs, deleteJob } from "../../services/jobService";
+import { toast } from "react-toastify";
 
 const RecruiterDashboard = () => {
   const [showForm, setShowForm] = useState(false);
@@ -22,24 +24,23 @@ const RecruiterDashboard = () => {
   };
 
   const handleDelete = async (id) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this job?"
-  );
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this job?"
+    );
 
-  if (!confirmDelete) return;
+    if (!confirmDelete) return;
 
-  try {
-    const response = await deleteJob(id);
+    try {
+      const response = await deleteJob(id);
 
-    alert(response.data.message);
+  toast.success(response.data.message);
 
-    fetchJobs(); // Refresh the list
-
-  } catch (error) {
-    console.error(error);
-    alert("Failed to delete job");
-  }
-};
+      fetchJobs();
+    } catch (error) {
+      console.error(error);
+   toast.error("Failed to delete job");
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto py-10">
@@ -56,22 +57,27 @@ const RecruiterDashboard = () => {
           </p>
         </div>
 
-        <Button onClick={() => setShowForm(!showForm)}>
+        <Button
+          onClick={() => {
+            setEditJob(null);
+            setShowForm(!showForm);
+          }}
+        >
           {showForm ? "Close Form" : "+ Post New Job"}
         </Button>
 
       </div>
 
       {showForm && (
-  <PostJobForm
-    editJob={editJob}
-    fetchJobs={fetchJobs}
-    closeForm={() => {
-      setShowForm(false);
-      setEditJob(null);
-    }}
-  />
-)}
+        <PostJobForm
+          editJob={editJob}
+          fetchJobs={fetchJobs}
+          closeForm={() => {
+            setShowForm(false);
+            setEditJob(null);
+          }}
+        />
+      )}
 
       <div className="mt-10">
 
@@ -87,53 +93,70 @@ const RecruiterDashboard = () => {
 
         ) : (
 
-          <div className="space-y-6">
+          <div className="space-y-8">
 
             {jobs.map((job) => (
 
               <div
                 key={job.id}
-                className="bg-white rounded-xl shadow-md p-6 flex justify-between items-center"
+                className="bg-white rounded-xl shadow-md p-6"
               >
 
-                <div>
+                {/* Job Info */}
+                <div className="flex justify-between items-start">
 
-                  <h3 className="text-2xl font-bold">
-                    {job.title}
-                  </h3>
+                  <div>
 
-                  <p className="text-gray-500 mt-2">
-                    {job.company}
-                  </p>
+                    <h3 className="text-2xl font-bold">
+                      {job.title}
+                    </h3>
 
-                  <p className="text-gray-500">
-                    {job.location}
-                  </p>
+                    <p className="text-blue-600 mt-2">
+                      {job.company}
+                    </p>
 
-                  <p className="text-blue-600 font-semibold mt-2">
-                    {job.salary}
-                  </p>
+                    <p className="text-gray-500">
+                      {job.location}
+                    </p>
+
+                    <p className="text-green-600 font-semibold mt-2">
+                      {job.salary}
+                    </p>
+
+                  </div>
+
+                  <div className="flex gap-3">
+
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setEditJob(job);
+                        setShowForm(true);
+                      }}
+                    >
+                      Edit
+                    </Button>
+
+                    <Button
+                      variant="destructive"
+                      onClick={() => handleDelete(job.id)}
+                    >
+                      Delete
+                    </Button>
+
+                  </div>
 
                 </div>
 
-                <div className="flex gap-3">
+                {/* Applicants */}
+                <div className="mt-8 border-t pt-6">
 
-                  <Button
-  variant="outline"
-  onClick={() => {
-    setEditJob(job);
-    setShowForm(true);
-  }}
->
-  Edit
-</Button>
+                  <h4 className="text-xl font-semibold mb-4">
+                    Applicants
+                  </h4>
 
-                  <Button
-  variant="destructive"
-  onClick={() => handleDelete(job.id)}
->
-  Delete
-</Button>
+                  <ApplicantsList jobId={job.id} />
+
                 </div>
 
               </div>

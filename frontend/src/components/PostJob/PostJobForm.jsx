@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createJob, updateJob } from "../../services/jobService";
+import { toast } from "react-toastify";
 
 const PostJobForm = ({
   editJob = null,
@@ -32,14 +33,14 @@ const PostJobForm = ({
     try {
       if (editJob) {
         const response = await updateJob(editJob.id, job);
-        alert(response.data.message);
+   toast.success(response.data.message);
       } else {
         const response = await createJob({
           ...job,
           recruiter_id: 1,
         });
 
-        alert(response.data.message);
+      toast.success(response.data.message);
       }
 
       if (fetchJobs) {
@@ -63,7 +64,7 @@ const PostJobForm = ({
 
     } catch (error) {
       console.error(error);
-      alert("Something went wrong");
+     toast.error("Something went wrong");
     }
   };
 

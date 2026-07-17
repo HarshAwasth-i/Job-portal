@@ -9,3 +9,7 @@ export const applyJob = (applicationData) => {
 export const getUserApplications = (userId) => {
   return axios.get(`${API}/user/${userId}`);
 };
+
+export const getApplicantsByJob = (jobId) => {
+  return axios.get(`${API}/job/${jobId}`);
+};

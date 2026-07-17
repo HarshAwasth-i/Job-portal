@@ -2,10 +2,15 @@ import axios from "axios";
 
 const API = "http://localhost:5000/api/jobs";
 
-export const getAllJobs = () => {
-  return axios.get(API);
+export const getAllJobs = (
+  search = "",
+  jobType = "",
+  location = ""
+) => {
+  return axios.get(
+    `${API}?search=${search}&jobType=${jobType}&location=${location}`
+  );
 };
-
 export const getJobById = (id) => {
   return axios.get(`${API}/${id}`);
 };
