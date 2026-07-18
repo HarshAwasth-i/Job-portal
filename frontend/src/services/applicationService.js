@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/applications";
+const API = `${import.meta.env.VITE_API_URL}/api/applications`;
 
 export const applyJob = (applicationData) => {
   return axios.post(API, applicationData);

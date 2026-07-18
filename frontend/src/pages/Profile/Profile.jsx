@@ -131,7 +131,7 @@ const Profile = () => {
 
         {profile.resume ? (
           <a
-            href={`http://localhost:5000/uploads/${profile.resume}`}
+          href={`${import.meta.env.VITE_API_URL}/uploads/${profile.resume}`}
             target="_blank"
             rel="noreferrer"
             className="text-blue-600 hover:underline"
