@@ -117,8 +117,57 @@ res.status(200).json({
     res.status(500).json(error);
   }
 };
+const getProfile = (req, res) => {
+  const { id } = req.params;
+const query =
+  "SELECT id, name, email, role, resume FROM users WHERE id = ?";
+
+  db.query(query, [id], (err, result) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    if (result.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "User not found" });
+    }
+
+    res.json(result[0]);
+  });
+};
+
+const uploadResume = (req, res) => {
+  const { id } = req.params;
+
+  if (!req.file) {
+    return res.status(400).json({
+      message: "No file uploaded",
+    });
+  }
+
+  const query =
+    "UPDATE users SET resume = ? WHERE id = ?";
+
+  db.query(
+    query,
+    [req.file.filename, id],
+    (err) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
+
+      res.json({
+        message: "Resume uploaded successfully",
+        filename: req.file.filename,
+      });
+    }
+  );
+};
 
 module.exports = {
   register,
-  login, 
+  login,
+  getProfile,
+  uploadResume,
 };

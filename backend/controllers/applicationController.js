@@ -67,7 +67,33 @@ const getUserApplications = (req, res) => {
   );
 };
 
+const getApplicantsByJob = (req, res) => {
+  const { jobId } = req.params;
+
+  db.query(
+    `SELECT
+      applications.id,
+      applications.status,
+      applications.applied_at,
+      users.name,
+      users.email
+    FROM applications
+    JOIN users
+      ON applications.user_id = users.id
+    WHERE applications.job_id = ?`,
+    [jobId],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
+
+      res.status(200).json(result);
+    }
+  );
+};
+
 module.exports = {
   applyJob,
   getUserApplications,
+  getApplicantsByJob,
 };

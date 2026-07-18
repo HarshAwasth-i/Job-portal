@@ -2,18 +2,52 @@ const db = require("../config/db");
 
 // Get All Jobs
 const getAllJobs = (req, res) => {
-  db.query(
-    "SELECT * FROM jobs ORDER BY created_at DESC",
-    (err, result) => {
-      if (err) {
-        return res.status(500).json(err);
-      }
+  const { search, jobType, location } = req.query;
 
-      res.status(200).json(result);
+  let query = "SELECT * FROM jobs WHERE 1=1";
+  let values = [];
+
+  // Search
+  if (search) {
+    query += `
+      AND (
+        title LIKE ?
+        OR company LIKE ?
+        OR location LIKE ?
+        OR skills LIKE ?
+      )
+    `;
+
+    values.push(
+      `%${search}%`,
+      `%${search}%`,
+      `%${search}%`,
+      `%${search}%`
+    );
+  }
+
+  // Job Type Filter
+  if (jobType) {
+    query += " AND job_type = ?";
+    values.push(jobType);
+  }
+
+  // Location Filter
+if (location) {
+  query += " AND location LIKE ?";
+  values.push(`%${location}%`);
+}
+
+  query += " ORDER BY created_at DESC";
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      return res.status(500).json(err);
     }
-  );
-};
 
+    res.status(200).json(result);
+  });
+};
 // Get Single Job By ID
 const getJobById = (req, res) => {
   const { id } = req.params;
