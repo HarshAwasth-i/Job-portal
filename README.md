@@ -285,14 +285,6 @@ https://www.linkedin.com/in/harsh-awasthi-181761331/
 
 ---
 
-# ⭐ Support
-
-If you found this project helpful, consider giving it a ⭐ on GitHub.
-
-It helps the project reach more developers.
-
----
-
 <div align="center">
 
 Made with ❤️ using React, Node.js, Express & MySQL
